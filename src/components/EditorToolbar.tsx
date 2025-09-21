@@ -20,16 +20,19 @@ import {
   Plus,
   Minus,
   Palette,
+  FileText,
 } from 'lucide-react';
 import { useRef } from 'react';
 
 interface EditorToolbarProps {
   editor: Editor;
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onWordUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const EditorToolbar = ({ editor, onImageUpload }: EditorToolbarProps) => {
+export const EditorToolbar = ({ editor, onImageUpload, onWordUpload }: EditorToolbarProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const wordInputRef = useRef<HTMLInputElement>(null);
 
   const addTable = () => {
     editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
@@ -205,6 +208,16 @@ export const EditorToolbar = ({ editor, onImageUpload }: EditorToolbarProps) => 
         <Button
           variant="ghost"
           size="sm"
+          onClick={() => wordInputRef.current?.click()}
+          className="flex items-center gap-1"
+        >
+          <FileText className="h-4 w-4" />
+          Word
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="sm"
           onClick={addTable}
           className="flex items-center gap-1"
         >
@@ -255,12 +268,19 @@ export const EditorToolbar = ({ editor, onImageUpload }: EditorToolbarProps) => 
           </>
         )}
 
-        {/* Hidden file input */}
+        {/* Hidden file inputs */}
         <input
           type="file"
           ref={fileInputRef}
           onChange={onImageUpload}
           accept="image/*"
+          className="hidden"
+        />
+        <input
+          type="file"
+          ref={wordInputRef}
+          onChange={onWordUpload}
+          accept=".docx,.doc"
           className="hidden"
         />
       </div>

@@ -14,6 +14,7 @@ import { EditorToolbar } from './EditorToolbar';
 import { ImageControls } from './ImageControls';
 import { ExportButtons } from './ExportButtons';
 import { useState, useCallback, useEffect } from 'react';
+import mammoth from 'mammoth';
 
 export const DocumentEditor = () => {
   const [selectedImage, setSelectedImage] = useState<HTMLImageElement | null>(null);
@@ -68,6 +69,23 @@ export const DocumentEditor = () => {
     }
   }, [editor]);
 
+  const handleWordUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file && editor) {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const arrayBuffer = reader.result as ArrayBuffer;
+          const result = await mammoth.convertToHtml({ arrayBuffer });
+          editor.chain().focus().setContent(result.value).run();
+        } catch (error) {
+          console.error('Error parsing Word document:', error);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  }, [editor]);
+
   const handleImageClick = useCallback((event: MouseEvent) => {
     const target = event.target as HTMLElement;
     if (target.tagName === 'IMG') {
@@ -104,7 +122,7 @@ export const DocumentEditor = () => {
         </div>
 
         {/* Toolbar */}
-        <EditorToolbar editor={editor} onImageUpload={handleImageUpload} />
+        <EditorToolbar editor={editor} onImageUpload={handleImageUpload} onWordUpload={handleWordUpload} />
 
         {/* Export Buttons */}
         <ExportButtons editor={editor} />
