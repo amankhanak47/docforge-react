@@ -22,6 +22,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -56,6 +57,21 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        editor: {
+          background: "hsl(var(--editor-background))",
+          document: "hsl(var(--document-background))",
+          shadow: "hsl(var(--document-shadow))",
+          toolbar: "hsl(var(--toolbar-background))",
+          "toolbar-border": "hsl(var(--toolbar-border))",
+          ribbon: "hsl(var(--ribbon-background))",
+        },
+        hover: {
+          background: "hsl(var(--hover-background))",
+        },
+        active: {
+          background: "hsl(var(--active-background))",
+          foreground: "hsl(var(--active-foreground))",
         },
       },
       borderRadius: {

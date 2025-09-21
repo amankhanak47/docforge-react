@@ -17,13 +17,15 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Microsoft Office inspired blues */
+    --primary: 210 100% 42%; /* Microsoft Blue #0078d4 */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 100% 38%;
 
-    --secondary: 210 40% 96.1%;
+    --secondary: 210 17% 95%;
     --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 40% 96.1%;
+    --muted: 210 13% 97%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --accent: 210 40% 96.1%;
@@ -34,7 +36,20 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 210 100% 42%;
+
+    /* Document Editor specific colors */
+    --editor-background: 210 17% 98%;
+    --document-background: 0 0% 100%;
+    --document-shadow: 0 0% 0% / 0.1;
+    --toolbar-background: 0 0% 100%;
+    --toolbar-border: 214.3 31.8% 91.4%;
+    --ribbon-background: 210 17% 99%;
+    
+    /* Hover states */
+    --hover-background: 210 17% 94%;
+    --active-background: 210 100% 42%;
+    --active-foreground: 0 0% 100%;
 
     --radius: 0.5rem;
 
@@ -65,8 +80,9 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 100% 45%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -82,7 +98,19 @@ All colors MUST be HSL.
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 210 100% 50%;
+
+    /* Document Editor dark mode */
+    --editor-background: 222.2 84% 4.9%;
+    --document-background: 217.2 32.6% 17.5%;
+    --document-shadow: 0 0% 0% / 0.3;
+    --toolbar-background: 217.2 32.6% 17.5%;
+    --toolbar-border: 217.2 32.6% 25%;
+    --ribbon-background: 222.2 84% 4.9%;
+    
+    --hover-background: 217.2 32.6% 25%;
+    --active-background: 210 100% 50%;
+    --active-foreground: 0 0% 100%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -102,4 +130,127 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* TipTap Editor Styles */
+.ProseMirror {
+  outline: none;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.ProseMirror h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+}
+
+.ProseMirror h3 {
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+}
+
+.ProseMirror p {
+  margin: 0.5em 0;
+}
+
+.ProseMirror ul, .ProseMirror ol {
+  margin: 0.5em 0;
+  padding-left: 2em;
+}
+
+.ProseMirror li {
+  margin: 0.25em 0;
+}
+
+.ProseMirror strong {
+  font-weight: bold;
+}
+
+.ProseMirror em {
+  font-style: italic;
+}
+
+.ProseMirror u {
+  text-decoration: underline;
+}
+
+.ProseMirror s {
+  text-decoration: line-through;
+}
+
+/* Table Styles */
+.ProseMirror table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 1em 0;
+  overflow: hidden;
+}
+
+.ProseMirror td, .ProseMirror th {
+  min-width: 1em;
+  border: 2px solid hsl(var(--border));
+  padding: 8px 12px;
+  vertical-align: top;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ProseMirror th {
+  font-weight: bold;
+  text-align: left;
+  background-color: hsl(var(--muted));
+}
+
+.ProseMirror .selectedCell:after {
+  z-index: 2;
+  position: absolute;
+  content: "";
+  left: 0; right: 0; top: 0; bottom: 0;
+  background: rgba(200, 200, 255, 0.4);
+  pointer-events: none;
+}
+
+.ProseMirror .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: -2px;
+  width: 4px;
+  background-color: hsl(var(--primary));
+  pointer-events: none;
+}
+
+.ProseMirror.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
+}
+
+/* Image Styles */
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.ProseMirror img:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 2px;
 }
