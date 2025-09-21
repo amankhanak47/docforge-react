@@ -76,8 +76,27 @@ export const DocumentEditor = () => {
       reader.onload = async () => {
         try {
           const arrayBuffer = reader.result as ArrayBuffer;
-          const result = await mammoth.convertToHtml({ arrayBuffer });
+          
+          // Configure mammoth to handle images
+          const result = await mammoth.convertToHtml(
+            { arrayBuffer },
+            {
+              convertImage: mammoth.images.imgElement((image) => {
+                return image.read("base64").then((imageBuffer) => {
+                  return {
+                    src: "data:" + image.contentType + ";base64," + imageBuffer
+                  };
+                });
+              })
+            }
+          );
+          
           editor.chain().focus().setContent(result.value).run();
+          
+          // Show any warnings from mammoth
+          if (result.messages.length > 0) {
+            console.log('Mammoth conversion warnings:', result.messages);
+          }
         } catch (error) {
           console.error('Error parsing Word document:', error);
         }
