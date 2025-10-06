@@ -10,6 +10,7 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import { FontFamily } from '@tiptap/extension-font-family';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { Underline } from '@tiptap/extension-underline';
+import { FontSize } from '@/lib/tiptap-font-size';
 import { EditorToolbar } from './EditorToolbar';
 import { ImageControls } from './ImageControls';
 import { ExportButtons } from './ExportButtons';
@@ -45,6 +46,7 @@ export const DocumentEditor = () => {
         types: ['heading', 'paragraph'],
       }),
       Underline,
+      FontSize,
     ],
     content: `
       <h1>Document Title</h1>
