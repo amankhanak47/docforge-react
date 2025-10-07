@@ -81,12 +81,12 @@ export const DocumentEditor = () => {
           const result = await mammoth.convertToHtml(
             { arrayBuffer },
             {
-              convertImage: (mammoth as any).images.inline(async (element: any) => {
+              convertImage: (async (element: any) => {
                 const imageBuffer = await element.read('base64');
                 return {
                   src: `data:${element.contentType};base64,${imageBuffer}`,
                 };
-              }),
+              }) as any,
             }
           );
           editor.chain().focus().setContent(result.value).run();
