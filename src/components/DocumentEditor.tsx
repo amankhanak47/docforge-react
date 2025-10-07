@@ -78,17 +78,7 @@ export const DocumentEditor = () => {
       reader.onload = async () => {
         try {
           const arrayBuffer = reader.result as ArrayBuffer;
-          const result = await mammoth.convertToHtml(
-            { arrayBuffer },
-            {
-              convertImage: (async (element: any) => {
-                const imageBuffer = await element.read('base64');
-                return {
-                  src: `data:${element.contentType};base64,${imageBuffer}`,
-                };
-              }) as any,
-            }
-          );
+          const result = await mammoth.convertToHtml({ arrayBuffer });
           editor.chain().focus().setContent(result.value).run();
         } catch (error) {
           console.error('Error parsing Word document:', error);

@@ -46,11 +46,16 @@ export const FontSize = Extension.create<FontSizeOptions>({
 
   addCommands() {
     return {
-      setFontSize: (fontSize: string) => ({ commands }) => {
-        return commands.setMark('textStyle', { fontSize });
+      setFontSize: (fontSize: string) => ({ chain }) => {
+        return chain()
+          .setMark('textStyle', { fontSize })
+          .run();
       },
-      unsetFontSize: () => ({ commands }) => {
-        return commands.setMark('textStyle', { fontSize: null });
+      unsetFontSize: () => ({ chain }) => {
+        return chain()
+          .setMark('textStyle', { fontSize: null })
+          .removeEmptyTextStyle()
+          .run();
       },
     };
   },
